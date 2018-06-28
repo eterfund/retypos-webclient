@@ -1,0 +1,11 @@
+{
+  "short_name": "Etersoft Typos",
+  "name": "Etersoft Typos ReactJS client application",
+  "icons": [
+    
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
