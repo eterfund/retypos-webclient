@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import TypoModal from '../Modal/'
-import {i18n} from '../Localization'
+import TypoModal from '../Modal/';
+import {i18n} from '../Localization';
+
+import {config} from '../config';
 
 class App extends Component {
 
@@ -12,9 +14,6 @@ class App extends Component {
     this.state = {
       correctionMode: false
     }
-
-    this.minSelectionLength = 4;
-    this.maxSelectionLength = 50;
 
     this.typo = "";
 
@@ -33,11 +32,11 @@ class App extends Component {
     $(document).keydown(event => {
       if (event.ctrlKey && event.keyCode === 13) {
         const selection = this.getSelectedText();
-        if (selection.length < this.minSelectionLength || 
-          selection.length > this.maxSelectionLength) 
+        if (selection.length < config.minTypoLength || 
+          selection.length > config.maxTypoLength) 
         {
           alert(i18n.formatString(i18n.errorSelectionLength, 
-            this.minSelectionLength, this.maxSelectionLength));
+            config.minTypoLength, config.maxTypoLength));
             
           return;
         }
@@ -56,7 +55,9 @@ class App extends Component {
     if (!this.state.correctionMode) return null;
 
     return (
-      <TypoModal text={this.typo} closeCallback={this.modalClosedCallback} show={this.state.correctionMode}/>
+      <TypoModal text={this.typo} 
+        closeCallback={this.modalClosedCallback} 
+        show={this.state.correctionMode}/>
     );
   }
 
