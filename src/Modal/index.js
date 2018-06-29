@@ -18,7 +18,7 @@ class TypoModal extends Component {
       text: this.props.text,
       correct: this.props.text,
       comment: "",
-      error: "",
+      error: ""
     }
 
     this.closeCallback = props.closeCallback;
@@ -71,13 +71,16 @@ class TypoModal extends Component {
 
   // Send typo to the typos server
   submitTypo = (corrected, comment) => {
-    if (this.checkData()) {
-      this.handleClose();
-      alertify.success(i18n.messageSuccess);
+
+    if (!this.checkData()) {
+      alertify.error(i18n.messageFailture);
       return;
     }
 
-    alertify.error(i18n.messageFailture)
+    this.handleClose();
+    alertify.success(i18n.messageSuccess);
+
+    return;
   }
 
   render() {

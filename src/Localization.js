@@ -13,6 +13,7 @@ export const i18n = new LocalizedStrings({
         errorSelectionLength:       "Опечатка должна быть длиной от {0} до {1} символов",  
         errorCorrectLength:         "Исправление должно быть длиной от {0} до {1} символов",
         errorDoesNotDistinct:       "Исправленный вариант идентичен исходному",
+        errorTooOften:              "Вы отправляете исправления слишком часто",
         close:                      "Закрыть",
         saveChanges:                "Сохранить изменения",
         messageSuccess:             "Благодарим за отправку. Опечатка будет исправлена",

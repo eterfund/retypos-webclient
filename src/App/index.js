@@ -14,7 +14,8 @@ class App extends Component {
     super(props, context);
 
     this.state = {
-      correctionMode: false
+      correctionMode: false,
+      isTimeout: false,
     }
 
     this.typo = "";
@@ -33,6 +34,11 @@ class App extends Component {
   registerHandlers() {
     $(document).keydown(event => {
       if (event.ctrlKey && event.keyCode === 13) {
+        if (this.state.isTimeout) {
+          alertify.error(i18n.errorTooOften);
+          return;
+        }
+        
         const selection = this.getSelectedText();
 
         if (selection === "") {
@@ -71,8 +77,15 @@ class App extends Component {
   // This method is invoked when a modal has been closed
   modalClosedCallback = () => {
     this.setState({
-      correctionMode: false
-    })
+      correctionMode: false,
+      isTimeout: true,
+    });
+
+    window.setTimeout(() => { 
+      console.log("state", this.state);
+      this.setState({ isTimeout: false }); 
+      console.log("afterstate", this.state);
+    }, config.requestTimeout);
   }
 
 }
