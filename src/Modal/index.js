@@ -10,10 +10,12 @@ class TypoModal extends Component {
     super(props, context);
 
     this.state = {
-      show: this.props.show
+      show: this.props.show,
+      text: this.props.text,
+      correct: this.props.text,
+      comment: ""
     }
 
-    this.text = props.text;
     this.closeCallback = props.closeCallback;
   }
 
@@ -22,8 +24,29 @@ class TypoModal extends Component {
   }
 
   handleClose = () => {
-    this.setState({ show: false })
+    this.setState({ 
+      show: false,
+      text: this.props.text,
+      comment: ""
+    });
+
     this.closeCallback();
+  }
+
+  // Comment data binding
+  onChangeComment = (event) => {
+    this.setState({ comment: event.target.value });
+  }
+
+  // Correct data binding
+  onChangeCorrect = (event) => {
+    this.setState({ correct: event.target.value });
+  }
+
+  // Send typo to the typos server
+  submitTypo = (corrected, comment) => {
+    alert(`Submit typo ${this.state.text}->${this.state.correct} (${this.state.comment})`);
+    this.handleClose();
   }
 
   render() {
@@ -37,25 +60,33 @@ class TypoModal extends Component {
         <Modal.Body>
           <p>{i18n.modalInfo}</p>
 
-          <form>
+          <form onSubmit={this.submitTypo}>
             <FormGroup className="es-typo-text-fg">
               <ControlLabel>{i18n.modalTypoLabel}</ControlLabel>
-              <p className="es-typo-text">{this.text}</p>
+              <p className="es-typo-text">{this.state.text}</p>
             </FormGroup>
 
             <FormGroup className="es-typo-correct-fg">
               <ControlLabel>{i18n.modalCorrectLabel}</ControlLabel>
               <FormControl 
                 type="text"
-                value={this.text} /> 
+                defaultValue={this.state.correct} 
+                onChange={this.onChangeCorrect}
+                required /> 
               <HelpBlock>{i18n.modalCorrectHelp}</HelpBlock>
+
+              <ControlLabel>{i18n.modalCommentLabel}</ControlLabel>
+              <FormControl 
+                type="text"
+                placeholder={i18n.modalCommentPlaceholder} 
+                onChange={this.onChangeComment}/> 
             </FormGroup>
           </form>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button>{i18n.close}</Button>
-          <Button bsStyle="primary">{i18n.saveChanges}</Button>
+          <Button onClick={this.handleClose}>{i18n.close}</Button>
+          <Button onClick={this.submitTypo} bsStyle="primary">{i18n.saveChanges}</Button>
         </Modal.Footer>
       
       </Modal>
