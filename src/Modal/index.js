@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
-import './Modal.css';
+import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap'
 
-import {i18n} from '../Localization'
+import './Modal.css';
+import {i18n} from '../Localization';
+
+import {config} from '../config';
+
+const alertify = require("alertify.js");
 
 class TypoModal extends Component {
 
@@ -13,7 +17,8 @@ class TypoModal extends Component {
       show: this.props.show,
       text: this.props.text,
       correct: this.props.text,
-      comment: ""
+      comment: "",
+      error: "",
     }
 
     this.closeCallback = props.closeCallback;
@@ -43,10 +48,36 @@ class TypoModal extends Component {
     this.setState({ correct: event.target.value });
   }
 
+  // Validate input data
+  checkData = () => {
+    
+    if (this.state.text === this.state.correct) {
+      this.setState({ error: i18n.errorDoesNotDistinct });
+      return false;
+    }
+
+    if (this.state.correct.length > config.maxCorrectLength ||
+        this.state.correct.length < config.minCorrectLength) {
+      this.setState({ 
+        error: i18n.formatString(i18n.errorCorrectLength, 
+          config.minCorrectLength, 
+          config.maxCorrectLength) 
+      });
+      return false;
+    }
+
+    return true;
+  }
+
   // Send typo to the typos server
   submitTypo = (corrected, comment) => {
-    alert(`Submit typo ${this.state.text}->${this.state.correct} (${this.state.comment})`);
-    this.handleClose();
+    if (this.checkData()) {
+      this.handleClose();
+      alertify.success(i18n.messageSuccess);
+      return;
+    }
+
+    alertify.error(i18n.messageFailture)
   }
 
   render() {
@@ -82,6 +113,8 @@ class TypoModal extends Component {
                 onChange={this.onChangeComment}/> 
             </FormGroup>
           </form>
+
+          { this.state.error ? <Alert bsStyle="danger">{this.state.error}</Alert> : null }
         </Modal.Body>
 
         <Modal.Footer>

@@ -6,6 +6,8 @@ import {i18n} from '../Localization';
 
 import {config} from '../config';
 
+const alertify = require("alertify.js");
+
 class App extends Component {
 
   constructor(props, context) {
@@ -32,10 +34,15 @@ class App extends Component {
     $(document).keydown(event => {
       if (event.ctrlKey && event.keyCode === 13) {
         const selection = this.getSelectedText();
+
+        if (selection === "") {
+          return;
+        }
+
         if (selection.length < config.minTypoLength || 
           selection.length > config.maxTypoLength) 
         {
-          alert(i18n.formatString(i18n.errorSelectionLength, 
+          alertify.error(i18n.formatString(i18n.errorSelectionLength, 
             config.minTypoLength, config.maxTypoLength));
             
           return;
