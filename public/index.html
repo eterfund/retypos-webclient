@@ -1,26 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    
-    <title>Test typo using page</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-    <p>Текст с разлчными опчатками, ктрый нужно исправить.</p>
+  <title>Test typo using page</title>
+</head>
 
-    <div id="typos-window"></div>
-    
-  </body>
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+  <div class="container">
+
+    <div class="nav-main">
+      <div class="wrap">
+        <a class="nav-home" href="index.html">
+          <img class="nav-logo" src="https://wix.github.io/react-templates/img/logo-rt.svg" width="56" height="24" />
+          <span>React Templates</span>
+        </a>
+        <ul class="nav-site">
+          <li>
+            <a href="fiddle.html">Playground</a>
+          </li>
+          <li>
+            <a href="https://github.com/wix/react-templates#template-directives-and-syntax">docs</a>
+          </li>
+          <li>
+            <a href="https://github.com/wix/react-templates#installation">download</a>
+          </li>
+          <li>
+            <a href="https://github.com/wix/react-templates">github</a>
+        </ul>
+      </div>
+    </div>
+    <a href="https://github.com/wix/react-templates" target="_blank">
+      <img class="img-fork-github" src="img/github-fork-me.png" alt="Fork me on GitHub" />
+    </a>
+
+    <div class="hero">
+      <div class="wrap">
+        <div class="text">React Tempwlates</div>
+        <div class="minitext">
+          Lightweight Temwplates for React
+        </div>
+        <div class="buttons-unit">
+          <a href="fiddle.html" class="button">Check Out wthe Playground</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="content wrap">
+      <section class="love-list">
+        <ul>
+          <li>No qweruntime liqwebraries. No magic. Simply precompile qwesyour way to qweclear React code.</li>
+          <li>Easy syntax tdhat's similar to HTML, supported by most IDEs.</li>
+          <li>Clear separation of presentation andqwe logic - almost zqweerqeo HTML in component files.</li>
+          <li>Declarasative cadfodiqweng ensures that the HTML that you wrdte and the HTML youqwe inspect look nearly identical.</li>
+          <li>Supports
+            <a href="#amd">AMD</a>,
+            <a href="#commonjs">CommwonJS</a>,
+            <a href="#es6">ES6</a>, Typescript anwd globals.</li>
+        </ul>
+      </section>
+      <section id="home-section" class="home-section">
+        <div id="loading">
+          Loading...
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <span>Sponsored by </span>
+      <a href="//wix.com" class="wf-white-logo"></a>
+    </footer>
+  </div>
+
+  <div id="typos-window"></div>
+
+</body>
+
 </html>
