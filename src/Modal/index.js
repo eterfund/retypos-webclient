@@ -92,14 +92,14 @@ class TypoModal extends Component {
       // Typo text
       text: this.state.text,
 
-      // Corrected variant (legacy name "comment")
-      comment: this.state.correct,
+      // This is a comment for a correction
+      comment: this.state.comment,
 
       // TODO: context
       context: this.state.context,
 
-      // This is a comment for a correction
-      note: this.state.comment,
+      // This is a correct variant
+      corrected: this.state.correct,
     }
 
     try {
