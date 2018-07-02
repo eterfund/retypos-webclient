@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap'
 
+import $ from 'jquery';
 import './Modal.css';
-import {i18n} from '../Localization';
+import { i18n } from '../Localization';
 
-import {config} from '../config';
+import { config } from '../config';
 
 const alertify = require("alertify.js");
 
@@ -21,7 +22,13 @@ class TypoModal extends Component {
       error: ""
     }
 
+    // TODO: English support
+    i18n.setLanguage(config.language);
+
     this.closeCallback = props.closeCallback;
+
+    // Bindings 
+    this.submitTypo = this.submitTypo.bind(this);
   }
 
   handleShow = () => {
@@ -29,7 +36,7 @@ class TypoModal extends Component {
   }
 
   handleClose = () => {
-    this.setState({ 
+    this.setState({
       show: false,
       text: this.props.text,
       comment: ""
@@ -50,18 +57,18 @@ class TypoModal extends Component {
 
   // Validate input data
   checkData = () => {
-    
+
     if (this.state.text === this.state.correct) {
       this.setState({ error: i18n.errorDoesNotDistinct });
       return false;
     }
 
     if (this.state.correct.length > config.maxCorrectLength ||
-        this.state.correct.length < config.minCorrectLength) {
-      this.setState({ 
-        error: i18n.formatString(i18n.errorCorrectLength, 
-          config.minCorrectLength, 
-          config.maxCorrectLength) 
+      this.state.correct.length < config.minCorrectLength) {
+      this.setState({
+        error: i18n.formatString(i18n.errorCorrectLength,
+          config.minCorrectLength,
+          config.maxCorrectLength)
       });
       return false;
     }
@@ -69,18 +76,71 @@ class TypoModal extends Component {
     return true;
   }
 
-  // Send typo to the typos server
-  submitTypo = (corrected, comment) => {
+  // Send data to the server 
+  async sendRequest() {
+    const serverUrl = config.serverUrl;
+    const url = /*window.location.href*/ 
+      "https://test.etersoft.ru/test_react_client";
+
+    const data = {
+      language: config.language,
+
+      // Url of the page with a typo
+      url: url,
+
+      // Typo text
+      text: this.state.text,
+
+      // Corrected variant (legacy name "comment")
+      comment: this.state.correct,
+
+      // TODO: context
+      context: "",
+
+      // This is a comment for a correction
+      note: this.state.comment,
+    }
+
+    try {
+      let result = await $.ajax({
+        method: "POST",
+        data: data,
+        url: serverUrl,
+      });
+
+      result = JSON.parse(result);
+
+      if (result.success === "true") {
+        return true;
+      }
+
+      console.error("sendRequest error:", result.message);
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // Validate data and send request to the server
+  async submitTypo(corrected, comment) {
 
     if (!this.checkData()) {
       alertify.error(i18n.messageFailture);
       return;
     }
 
+    // Close window - user can continue working 
     this.handleClose();
-    alertify.success(i18n.messageSuccess);
 
-    return;
+    // Send async request
+    this.sendRequest().then(success => {
+      if (success) {
+        alertify.success(i18n.messageSuccess);
+        return;
+      }
+
+      alertify.error(i18n.messageFailture);
+    });
   }
 
   render() {
@@ -102,29 +162,29 @@ class TypoModal extends Component {
 
             <FormGroup className="es-typo-correct-fg">
               <ControlLabel>{i18n.modalCorrectLabel}</ControlLabel>
-              <FormControl 
+              <FormControl
                 type="text"
-                defaultValue={this.state.correct} 
+                defaultValue={this.state.correct}
                 onChange={this.onChangeCorrect}
-                required /> 
+                required />
               <HelpBlock>{i18n.modalCorrectHelp}</HelpBlock>
 
               <ControlLabel>{i18n.modalCommentLabel}</ControlLabel>
-              <FormControl 
+              <FormControl
                 type="text"
-                placeholder={i18n.modalCommentPlaceholder} 
-                onChange={this.onChangeComment}/> 
+                placeholder={i18n.modalCommentPlaceholder}
+                onChange={this.onChangeComment} />
             </FormGroup>
           </form>
 
-          { this.state.error ? <Alert bsStyle="danger">{this.state.error}</Alert> : null }
+          {this.state.error ? <Alert bsStyle="danger">{this.state.error}</Alert> : null}
         </Modal.Body>
 
         <Modal.Footer>
           <Button onClick={this.handleClose}>{i18n.close}</Button>
           <Button onClick={this.submitTypo} bsStyle="primary">{i18n.saveChanges}</Button>
         </Modal.Footer>
-      
+
       </Modal>
     );
   }
