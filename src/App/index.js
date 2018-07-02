@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 
 import TypoModal from '../Modal/';
+import ContextExtractor from './ContextExtractor';
 import {i18n} from '../Localization';
 
 import {config} from '../config';
@@ -18,8 +19,8 @@ class App extends Component {
       isTimeout: false,
     }
 
+    this.selectionContext = "";
     this.typo = "";
-
     this.registerHandlers();
   }
 
@@ -39,7 +40,9 @@ class App extends Component {
           return;
         }
         
+        const contextExtractor = new ContextExtractor();
         const selection = this.getSelectedText();
+        this.selectionContext = contextExtractor.getContextForSelection();
 
         if (selection === "") {
           return;
@@ -68,7 +71,7 @@ class App extends Component {
     if (!this.state.correctionMode) return null;
 
     return (
-      <TypoModal text={this.typo} 
+      <TypoModal text={this.typo} context={this.selectionContext}
         closeCallback={this.modalClosedCallback} 
         show={this.state.correctionMode}/>
     );
@@ -82,9 +85,7 @@ class App extends Component {
     });
 
     window.setTimeout(() => { 
-      console.log("state", this.state);
       this.setState({ isTimeout: false }); 
-      console.log("afterstate", this.state);
     }, config.requestTimeout);
   }
 

@@ -3,8 +3,8 @@ import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert }
 
 import $ from 'jquery';
 import './Modal.css';
-import { i18n } from '../Localization';
 
+import { i18n } from '../Localization';
 import { config } from '../config';
 
 const alertify = require("alertify.js");
@@ -18,6 +18,7 @@ class TypoModal extends Component {
       show: this.props.show,
       text: this.props.text,
       correct: this.props.text,
+      context: this.props.context,
       comment: "",
       error: ""
     }
@@ -95,7 +96,7 @@ class TypoModal extends Component {
       comment: this.state.correct,
 
       // TODO: context
-      context: "",
+      context: this.state.context,
 
       // This is a comment for a correction
       note: this.state.comment,
