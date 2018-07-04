@@ -10,4 +10,6 @@ export const config = {
     requestTimeout:         10000,
 
     defaultLanguage:        "ru",
+
+    appStorageKey:          "typos.etersoft",
 };

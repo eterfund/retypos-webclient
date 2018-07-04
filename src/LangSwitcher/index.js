@@ -18,25 +18,25 @@ class LangSwitcher extends Component {
         this.onLangChanged = props.onLangChanged;
 
         this.state = {
-            activeLanguage: 0
+            activeLanguage: this.props.activeLanguage || this.languages[0]
         };
     }
 
-    changeLanguage = index => {
-        this.setState({ activeLanguage: index });
-        this.onLangChanged(this.languages[index]);
+    changeLanguage = element => {
+        this.setState({ activeLanguage: element });
+        this.onLangChanged(element);
     }
 
     render() {
         const thumbs = this.languages.map((element, index) => {
-            if (index === this.state.activeLanguage) {
+            if (element === this.state.activeLanguage) {
                 return <Thumbnail key={index} className="lang-thumb active" 
                     src={countryImages[element]}
-                    onClick={e => this.changeLanguage(index)}></Thumbnail>
+                    onClick={e => this.changeLanguage(element)}></Thumbnail>
             } else {
                 return <Thumbnail key={index} className="lang-thumb" 
                     src={countryImages[element]}
-                    onClick={e => this.changeLanguage(index)}></Thumbnail>
+                    onClick={e => this.changeLanguage(element)}></Thumbnail>
             }
         });
 

@@ -21,14 +21,13 @@ class TypoModal extends Component {
       text: this.props.text,
       correct: this.props.text,
       context: this.props.context,
-      language: config.defaultLanguage,
+      language: this.getLanguage(),
       comment: "",
       error: ""
     }
 
     this.languages = [ "ru", "en" ];
 
-    // TODO: English support
     i18n.setLanguage(this.state.language);
 
     this.closeCallback = props.closeCallback;
@@ -149,10 +148,22 @@ class TypoModal extends Component {
     });
   }
 
+  // Returns language from local storage preferences or from default config value
+  getLanguage() {
+    const persisted = window.localStorage.getItem(`${config.appStorageKey}.lang`);
+    return persisted || config.defaultLanguage;
+  }
+
+  // Save language user preference to the local storage
+  persistLanguage(lang) {
+    window.localStorage.setItem(`${config.appStorageKey}.lang`, lang);
+  }
+
   onLangChanged = language => {
     i18n.setLanguage(language);
     this.setState({language: language});
-    this.forceUpdate();
+    
+    this.persistLanguage(language);
   }
 
   render() {
@@ -193,7 +204,7 @@ class TypoModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <LangSwitcher onLangChanged={this.onLangChanged} languages={this.languages}></LangSwitcher>
+          <LangSwitcher activeLanguage={this.state.language} onLangChanged={this.onLangChanged} languages={this.languages}></LangSwitcher>
 
           <Button onClick={this.handleClose}>{i18n.close}</Button>
           <Button onClick={this.submitTypo} bsStyle="primary">{i18n.saveChanges}</Button>
