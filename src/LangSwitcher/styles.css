@@ -1,0 +1,16 @@
+.lang-switcher {
+    display: inline-block;
+}
+
+.lang-thumb {
+    display: inline-block;
+    margin: 0;
+}
+
+.lang-thumb.active {
+    background: #5cb85c;
+}
+
+.lang-thumb:hover:not(.active) {
+    background: rgba(92, 184, 92, 0.59);
+}

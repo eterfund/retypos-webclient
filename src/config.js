@@ -9,5 +9,5 @@ export const config = {
 
     requestTimeout:         10000,
 
-    language:               "ru",
+    defaultLanguage:        "ru",
 };

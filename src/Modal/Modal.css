@@ -10,3 +10,12 @@
 .es-typo-text-fg {
   margin-top: 30px;
 }
+
+.ru-lang-thumb, .en-lang-thumb {
+  float: left;
+  width: 50px;
+}
+
+.lang-switcher {
+  float: left;
+}

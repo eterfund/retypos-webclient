@@ -8,6 +8,10 @@ export default class ContextExtractor {
     
     // Returns a context for a current selection
     getContextForSelection() {
+        if (window.getSelection().baseNode === undefined) {
+            return "";
+        }
+        
         const text = window.getSelection()
             .baseNode.parentNode.textContent
             .replace(/\n/g,"")

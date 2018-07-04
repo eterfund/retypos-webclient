@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap'
+import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert, Thumbnail } from 'react-bootstrap'
 
 import $ from 'jquery';
 import './Modal.css';
 
 import { i18n } from '../Localization';
 import { config } from '../config';
+
+import LangSwitcher from '../LangSwitcher';
 
 const alertify = require("alertify.js");
 
@@ -19,12 +21,15 @@ class TypoModal extends Component {
       text: this.props.text,
       correct: this.props.text,
       context: this.props.context,
+      language: config.defaultLanguage,
       comment: "",
       error: ""
     }
 
+    this.languages = [ "ru", "en" ];
+
     // TODO: English support
-    i18n.setLanguage(config.language);
+    i18n.setLanguage(this.state.language);
 
     this.closeCallback = props.closeCallback;
 
@@ -84,7 +89,7 @@ class TypoModal extends Component {
       "https://test.etersoft.ru/test_react_client";
 
     const data = {
-      language: config.language,
+      language: this.state.language,
 
       // Url of the page with a typo
       url: url,
@@ -126,7 +131,7 @@ class TypoModal extends Component {
   async submitTypo(corrected, comment) {
 
     if (!this.checkData()) {
-      alertify.error(i18n.messageFailture);
+      alertify.error(i18n.errorFormContainsErrors);
       return;
     }
 
@@ -140,8 +145,14 @@ class TypoModal extends Component {
         return;
       }
 
-      alertify.error(i18n.messageFailture);
+      alertify.error(i18n.errorSendFailture);
     });
+  }
+
+  onLangChanged = language => {
+    i18n.setLanguage(language);
+    this.setState({language: language});
+    this.forceUpdate();
   }
 
   render() {
@@ -178,10 +189,12 @@ class TypoModal extends Component {
             </FormGroup>
           </form>
 
-          {this.state.error ? <Alert bsStyle="danger">{this.state.error}</Alert> : null}
+          {this.state.error && <Alert bsStyle="danger">{this.state.error}</Alert>}
         </Modal.Body>
 
         <Modal.Footer>
+          <LangSwitcher onLangChanged={this.onLangChanged} languages={this.languages}></LangSwitcher>
+
           <Button onClick={this.handleClose}>{i18n.close}</Button>
           <Button onClick={this.submitTypo} bsStyle="primary">{i18n.saveChanges}</Button>
         </Modal.Footer>
