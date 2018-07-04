@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import {Thumbnail} from 'react-bootstrap'
 
-import { i18n } from '../Localization';
-import { config } from '../config';
-
 import countryImages from './images';
 
 import './styles.css'

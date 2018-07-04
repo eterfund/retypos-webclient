@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert, Thumbnail } from 'react-bootstrap'
+import { Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap'
 
 import $ from 'jquery';
 import './Modal.css';

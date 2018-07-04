@@ -1,7 +1,7 @@
 {
   "name": "typos-react",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "alertify.js": "^1.0.12",
     "bootstrap": "^3.3.7",
