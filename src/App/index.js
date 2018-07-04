@@ -72,13 +72,20 @@ class App extends Component {
 
     return (
       <TypoModal text={this.typo} context={this.selectionContext}
-        closeCallback={this.modalClosedCallback} 
+        closeCallback={this.modalClosedCallback.bind(true)} 
         show={this.state.correctionMode}/>
     );
   }
 
   // This method is invoked when a modal has been closed
-  modalClosedCallback = () => {
+  modalClosedCallback = (requestSent) => {
+    if (!requestSent) {
+      this.setState({
+        correctionMode: false
+      });
+      return;
+    }
+
     this.setState({
       correctionMode: false,
       isTimeout: true,
