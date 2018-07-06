@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Thumbnail} from 'react-bootstrap'
+import React, {Component} from 'react';
+import Thumbnail from 'react-bootstrap/lib';
 
 import countryImages from './images';
 

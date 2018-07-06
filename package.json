@@ -15,7 +15,7 @@
   "scripts": {
     "buildDev": "webpack -d --devtool=source-map",
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server -d --hot --content-base dist/"
+    "start": "webpack-dev-server -d --hot --content-base example/"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
