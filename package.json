@@ -4,6 +4,7 @@
   "private": false,
   "dependencies": {
     "alertify.js": "^1.0.12",
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.3.1",
     "react": "^16.4.1",
@@ -11,12 +12,11 @@
     "react-dom": "^16.4.1",
     "react-localization": "^1.0.10"
   },
-
   "scripts": {
-    "buildDev": "webpack --mode=development --devtool=source-map",
-    "build": "webpack --mode=production"
+    "buildDev": "webpack -d --devtool=source-map",
+    "build": "webpack --mode=production",
+    "start": "webpack-dev-server -d --hot --content-base dist/"
   },
-
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -28,6 +28,8 @@
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.15.1",
-    "webpack-command": "^0.4.0"
+    "webpack-cli": "^3.0.8",
+    "webpack-command": "^0.4.0",
+    "webpack-dev-server": "^3.1.4"
   }
 }

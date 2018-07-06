@@ -1,3 +1,7 @@
+// Need to include this for ES2015+ features like
+// Array.prototype.includes and async/await work
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
