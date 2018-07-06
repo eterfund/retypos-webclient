@@ -91,11 +91,14 @@ class App extends Component {
       isTimeout: true,
     });
 
-    window.setTimeout(() => { 
+    this.requestTimer = window.setTimeout(() => { 
       this.setState({ isTimeout: false }); 
     }, config.requestTimeout);
   }
 
+  componentWillUnmount() {
+    window.clearTimeout(this.requestTimeout);
+  }
 }
 
 export default App;

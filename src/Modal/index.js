@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
-import Modal from 'react-bootstrap/lib';
-import Button from 'react-bootstrap/lib';
-import FormGroup from 'react-bootstrap/lib';
-import FormControl from 'react-bootstrap/lib';
-import ControlLabel from 'react-bootstrap/lib';
-import HelpBlock from 'react-bootstrap/lib';
-import Alert from 'react-bootstrap/lib';
+import {Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap';
 
 import $ from 'jquery';
 import './Modal.css';
