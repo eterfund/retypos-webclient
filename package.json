@@ -1,24 +1,22 @@
 {
   "name": "@etersoft/typos-react",
-  "version": "1.0.0",
-
+  "version": "1.0.1",
   "keywords": [
-    "etersoft", "typos", "correction", "react"
+    "etersoft",
+    "typos",
+    "correction",
+    "react"
   ],
-
   "license": "MIT",
-
   "author": {
     "name": "George Popoff",
     "email": "ambulance@etersoft.ru"
   },
-  
   "main": "dist/etersoft-typos.js",
   "unpkg": "dist/etersoft-typos.js",
   "files": [
     "dist"
   ],
-  
   "dependencies": {
     "alertify.js": "^1.0.12",
     "babel-polyfill": "^6.26.0",
