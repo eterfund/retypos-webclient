@@ -85,8 +85,7 @@ class TypoModal extends Component {
   // Send data to the server 
   async sendRequest() {
     const serverUrl = config.serverUrl;
-    const url = /*window.location.href*/ 
-      "https://test.etersoft.ru/test_react_client";
+    const url = window.location.href;
 
     const data = {
       language: this.state.language,
