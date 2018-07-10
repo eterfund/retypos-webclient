@@ -1,5 +1,6 @@
 {
   "name": "@etersoft/retypos-webclient",
+  "description": "A part of the Etersoft typos autocorrection system. Webclient based on react",
   "version": "1.0.3",
   "keywords": [
     "etersoft",
