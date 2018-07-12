@@ -3,7 +3,7 @@
 }
 
 .lang-thumb {
-    display: inline-block;
+    display: inline-block !important;
     margin: 0;
 }
 

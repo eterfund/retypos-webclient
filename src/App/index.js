@@ -7,6 +7,8 @@ import {i18n} from '../Localization';
 
 import {config} from '../config';
 
+import './bootstrap-custom/css/es-bootstrap.scss';
+
 const alertify = require("alertify.js");
 
 class App extends Component {
