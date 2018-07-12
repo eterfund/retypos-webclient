@@ -1,16 +1,17 @@
 .lang-switcher {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .lang-thumb {
+    cursor: pointer;
     display: inline-block !important;
     margin: 0;
 }
 
 .lang-thumb.active {
-    background: #5cb85c;
+    background: #5cb85c !important;
 }
 
 .lang-thumb:hover:not(.active) {
-    background: rgba(92, 184, 92, 0.59);
+    background: rgba(92, 184, 92, 0.59) !important;
 }
