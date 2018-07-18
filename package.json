@@ -21,7 +21,6 @@
   "dependencies": {
     "alertify.js": "^1.0.12",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^3.3.7",
     "jquery": "^3.3.1",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
@@ -31,7 +30,7 @@
   "scripts": {
     "buildDev": "webpack -d --devtool=source-map",
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server -d --hot --content-base example/"
+    "start": "webpack-dev-server -d --hot --inline --content-base example/"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -7,7 +7,7 @@ import {i18n} from '../Localization';
 
 import {config} from '../config';
 
-import './bootstrap-custom/css/es-bootstrap.scss';
+import './styles.scss';
 
 const alertify = require("alertify.js");
 
