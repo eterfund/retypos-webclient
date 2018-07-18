@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Modal, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap';
+import {Modal, Checkbox, Button, FormGroup, FormControl, ControlLabel, HelpBlock, Alert } from 'react-bootstrap';
 
 import $ from 'jquery';
 import './Modal.css';
@@ -22,6 +22,7 @@ class TypoModal extends Component {
       text: this.props.text,
       correct: this.props.text,
       context: this.props.context,
+      contentEditable: this.props.contentEditable,
       language: this.getLanguage(),
       comment: "",
       error: ""
@@ -32,6 +33,7 @@ class TypoModal extends Component {
     i18n.setLanguage(this.state.language);
 
     this.closeCallback = props.closeCallback;
+    this.contentEditableCallback = props.contentEditableCallback;
 
     // Bindings 
     this.submitTypo = this.submitTypo.bind(this);
@@ -166,6 +168,14 @@ class TypoModal extends Component {
     this.persistLanguage(language);
   }
 
+  onContentEditableCheckboxChanged = (e) => {
+    this.setState({
+      contentEditable: e.target.checked
+    });
+
+    this.contentEditableCallback(e);
+  }
+
   render() {
     if (!this.state.show) return null;
 
@@ -204,6 +214,9 @@ class TypoModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
+          <Checkbox onChange={this.onContentEditableCheckboxChanged} checked={this.state.contentEditable}>
+            {i18n.typoHighlightingEnable}
+          </Checkbox>
           <LangSwitcher activeLanguage={this.state.language} onLangChanged={this.onLangChanged} languages={this.languages}></LangSwitcher>
 
           <Button onClick={this.handleClose}>{i18n.close}</Button>

@@ -19,6 +19,9 @@ export const i18n = new LocalizedStrings({
         messageSuccess:             "Благодарим за отправку опечатки. Мы уже работаем над её исправлением!",
         errorFormContainsErrors:    "Форма отправки содержит ошибки!",
         errorSendFailture:          "Не удалось отправить исправление. Мы уже работаем над решением проблемы!",
+        typoHighlightingEnable:     "Включить подсветку ошибок",
+        typoHighlightingEnabled:    "Подсветка опечаток на странице включена",
+        typoHighlightingDisabled:   "Подсветка опечаток на странице выключена",
     },
     en: {
         modalTitle:                 "Typo correction system Etersoft",
@@ -38,5 +41,8 @@ export const i18n = new LocalizedStrings({
         messageSuccess:             "Thank you for a typo submitting! We are already working on this report!",
         errorFormContainsErrors:    "The form contains errors!",
         errorSendFailture:          "Failed to send request. We are fixing a problem!",
+        typoHighlightingEnable:     "Typo highlighting on page",
+        typoHighlightingEnabled:    "Typo highlighting enabled on this page",
+        typoHighlightingDisabled:   "Typo highlighting disabled on this page",
     }
 })

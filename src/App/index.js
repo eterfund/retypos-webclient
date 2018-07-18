@@ -19,11 +19,50 @@ class App extends Component {
     this.state = {
       correctionMode: false,
       isTimeout: false,
+      contentEditable: false
     }
 
     this.selectionContext = "";
     this.typo = "";
     this.registerHandlers();
+  }
+
+  setContenteditable = (e) => {
+    if (e.target.checked) {
+      this.setState({
+        contentEditable: true
+      });
+
+      alertify.success(i18n.typoHighlightingEnabled);
+    } else {
+      this.setState({
+        contentEditable: false
+      });
+
+      alertify.success(i18n.typoHighlightingDisabled);
+    }
+  }
+
+  /**
+   * Enables browser typo highlighting on page
+   */
+  enableTypoHighlighting = () => {
+    let body = $("body");
+    body.attr("contenteditable", true);
+    body.attr("oncut", "return false");
+    body.attr("onpaste", "return false");
+    body.attr("onkeydown", "if(event.metaKey) return true; return false;");
+  }
+
+  /**
+  * Disables browser typo highlighting on page
+  */
+  disableTypoHighlighting = () => {
+    let body = $("body");
+    body.attr("contenteditable", false);
+    body.attr("oncut", "return true");
+    body.attr("onpaste", "return true");
+    body.attr("onkeydown", "return true");
   }
 
   // Returns selected text or null if no
@@ -61,6 +100,8 @@ class App extends Component {
 
         this.typo = selection;
 
+        this.disableTypoHighlighting();
+
         // Ctrl-Enter pressed
         this.setState({
           correctionMode: true
@@ -75,6 +116,8 @@ class App extends Component {
     return (
       <TypoModal text={this.typo} context={this.selectionContext}
         closeCallback={this.modalClosedCallback.bind(true)} 
+        contentEditableCallback={this.setContenteditable}
+        contentEditable={this.state.contentEditable}
         show={this.state.correctionMode}/>
     );
   }
@@ -85,17 +128,22 @@ class App extends Component {
       this.setState({
         correctionMode: false
       });
-      return;
+    } else {
+
+      this.setState({
+        correctionMode: false,
+        isTimeout: true,
+      });
+
+      this.requestTimer = window.setTimeout(() => { 
+        this.setState({ isTimeout: false }); 
+      }, config.requestTimeout);
     }
 
-    this.setState({
-      correctionMode: false,
-      isTimeout: true,
-    });
+    if (this.state.contentEditable) {
+      this.enableTypoHighlighting();
+    }
 
-    this.requestTimer = window.setTimeout(() => { 
-      this.setState({ isTimeout: false }); 
-    }, config.requestTimeout);
   }
 
   componentWillUnmount() {

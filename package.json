@@ -30,6 +30,7 @@
   "scripts": {
     "buildDev": "webpack -d --devtool=source-map",
     "build": "webpack --mode=production",
+    "watch": "webpack -w",
     "start": "webpack-dev-server -d --hot --inline --content-base example/"
   },
   "devDependencies": {
