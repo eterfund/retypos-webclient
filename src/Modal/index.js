@@ -37,6 +37,11 @@ class TypoModal extends Component {
 
     // Bindings 
     this.submitTypo = this.submitTypo.bind(this);
+
+    if (!window.localStorage.getItem(`${config.appStorageKey}.debug`)) {
+      window.localStorage.setItem(`${config.appStorageKey}.debug`, false);
+    }
+
   }
 
   handleShow = () => {
@@ -86,7 +91,13 @@ class TypoModal extends Component {
 
   // Send data to the server 
   async sendRequest() {
-    const serverUrl = config.serverUrl;
+    let debugMode = window.localStorage.getItem(`${config.appStorageKey}.debug`);
+    
+    let serverUrl = config.serverUrl;
+    if (debugMode == "true") {
+      serverUrl = config.devServerUrl;
+    }
+
     const url = window.location.href;
 
     const data = {
