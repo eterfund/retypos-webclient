@@ -19,3 +19,9 @@
 .lang-switcher {
   float: left;
 }
+
+.typo-highlighting-checkbox {
+  float: left;
+  width: 100%;
+  text-align: left;
+}

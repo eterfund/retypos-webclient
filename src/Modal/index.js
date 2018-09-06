@@ -225,10 +225,11 @@ class TypoModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Checkbox onChange={this.onContentEditableCheckboxChanged} checked={this.state.contentEditable}>
+          <Checkbox className="typo-highlighting-checkbox" onChange={this.onContentEditableCheckboxChanged}
+                    checked={this.state.contentEditable}>
             {i18n.typoHighlightingEnable}
           </Checkbox>
-          <LangSwitcher activeLanguage={this.state.language} onLangChanged={this.onLangChanged} languages={this.languages}></LangSwitcher>
+          <LangSwitcher activeLanguage={this.state.language} onLangChanged={this.onLangChanged} languages={this.languages}/>
 
           <Button onClick={this.handleClose}>{i18n.close}</Button>
           <Button onClick={this.submitTypo} bsStyle="primary">{i18n.saveChanges}</Button>
